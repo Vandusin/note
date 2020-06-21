@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import iView from 'iview'
 import layout from '@/views/admin/layout/index.vue'
 import clayout from '@/views/customer/layout/index.vue'
-import slayout from '@/views/customer/layout/index.vue'
+import slayout from '@/views/supplier/layout/index.vue'
 
 Vue.use(Router)
 
@@ -28,14 +28,14 @@ const router = new Router({
             meta: {
                 title: '票据管理系统'
             },
-            component: slayout,
+            component: clayout,
             children: [
                 {
                 path: 'index',
                 meta: {
                     title: '票据管理系统'
                 },
-                component: () => import('@/views/supplier/index/index.vue')
+                component: () => import('@/views/customer/index/index.vue')
                 }
             ]
         },

@@ -7,7 +7,7 @@ export default [
         {
           icon: 'ios-folder-outline',
           title: '进货信息表',
-          route: '/supplier/table/supplier/list'
+          route: '/supplier/table/shipping/list'
         }
       ]
     },
