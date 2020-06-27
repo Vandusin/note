@@ -3,7 +3,7 @@
     <List :columns="columns" :data="items">
       <div class="list-header">
         <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/klass/edit`)">新增</Button>
+          <Button class="margin-right-sm" type="primary" @click="$router.push(`/customer/table/shipping/edit`)">新增</Button>
         </div>
         <div class="list-search">
           <Form inline >

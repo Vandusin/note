@@ -101,7 +101,7 @@ export default {
       window.history.go(-1)
     },
     onSave () {
-      this.$refs.StudentInfo.validate(async valid => {
+      this.$refs.PersonInfo.validate(async valid => {
         if (valid) {
           this.$Message.success("保存成功")
 

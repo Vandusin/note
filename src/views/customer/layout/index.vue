@@ -23,12 +23,12 @@
             </a>
             <DropdownMenu slot="list">
               <DropdownItem >
-                <div  class="flex_row">
+                <div  class="flex_row" >
                   修改密码
                 </div>
               </DropdownItem>
               <DropdownItem >
-                <div class="flex_row">
+                <div class="flex_row" @click="$router.push('/*') ">
                   注销
                 </div>
               </DropdownItem>

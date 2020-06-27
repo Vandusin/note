@@ -9,6 +9,8 @@ Vue.use(Router)
 
 const router = new Router({
     routes: [
+
+      //登陆
         {
             path: '/login',
             name: 'login',
@@ -17,10 +19,14 @@ const router = new Router({
             },
             component: () => import('@/views/login.vue')
         },
+
+        //404，访问错误
         {
             path: '*',
             component: () => import('@/views/not-found.vue')
         },
+
+        //主页
         {
             path: '/',
             name: 'index',
@@ -35,10 +41,12 @@ const router = new Router({
                 meta: {
                     title: '票据管理系统'
                 },
-                component: () => import('@/views/customer/index/index.vue')
+                component: () => import('@/views/admin/index/index.vue')
                 }
             ]
         },
+
+        //管理员系统信息表
         {
           path: '/table',
           name: 'shipping',
@@ -70,6 +78,8 @@ const router = new Router({
               }
           ]
         },
+
+        //管理员系统用户信息表
         {
           path: '/user',
           name: 'user',
@@ -102,7 +112,7 @@ const router = new Router({
           ]
         },
 
-
+        //客户操作系统-出货信息表
         {
           path: '/customer-table',
           name: 'customer-shipping',
@@ -127,6 +137,8 @@ const router = new Router({
             }
           ]
         },
+
+        //客户操作系统-个人信息表
         {
           path: '/customer-person',
           name: 'customer-person',
@@ -152,7 +164,7 @@ const router = new Router({
           ]
         },
 
-        
+        //供应商操作系统-进货信息表
         {
           path: '/supplier-table',
           name: 'supplier-purchase',
@@ -177,6 +189,8 @@ const router = new Router({
             }
           ]
         },
+
+        //客户操作系统-个人信息
         {
           path: '/supplier-person',
           name: 'supplier-person',
