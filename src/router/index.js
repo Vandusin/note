@@ -34,7 +34,18 @@ const router = new Router({
             meta: {
                 title: '用户注册'
             },
-            component: () => import('@/views/register.vue')
+
+            /*component: () => import('@/views/register.vue')*/
+            component: clayout,
+            children: [
+                {
+                path: 'index',
+                meta: {
+                    title: '票据管理系统'
+                },
+                component: () => import('@/views/customer/index/index.vue')
+                }
+            ]
         },
         {
             path: '*',
