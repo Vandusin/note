@@ -58,12 +58,13 @@ const router = new Router({
             ]
         },
 
-        //管理员系统信息表
+        
         {
             path: '*',
             component: () => import('@/views/not-found.vue')
         },
-      
+        
+      //管理员系统信息表
         {
           path: '/table',
           name: 'shipping',

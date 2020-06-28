@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import shippingService from '@/api/shippinginfo'
+import AdminService from '@/api/admininfo'
 
 export default {
   components: {
@@ -81,7 +81,7 @@ export default {
               h('Button', {
               on: {
                   click: () => {
-                  this.onDeleteKlass(params.row.id)
+                  this.onDeleteSupplier(params.row.id)
                   }
               }
               }, '删除'),
@@ -91,14 +91,21 @@ export default {
     }
   },
   created () {
-    this.getKlassList()
+    this.getSupplierList()
   },
   methods: {
-    getKlassList(){
-      shippingService.list().then(res=>{
+    getSupplierList(){
+      AdminService.list().then(res=>{
         this.items = res.data
       })
     },
+    onDeleteSupplier(id){
+      AdminService.deleteSupplier(id).then(res =>{
+          console.log(res)
+          this.$Message.success("删除成功")
+          this.getSupplierList()
+      })
+    }
   }
 
 }

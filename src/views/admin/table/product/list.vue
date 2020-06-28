@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import shippingService from '@/api/shippinginfo'
+import AdminService from '@/api/admininfo'
 
 export default {
   components: {
@@ -68,27 +68,9 @@ export default {
   },
   methods: {
     getKlassList(){
-      shippingService.list().then(res=>{
+      AdminService.list().then(res=>{
         this.items = res.data
       })
-    },
-    onEditForm(params){
-      this.$router.push({
-          path:`/klass/edit`,
-          query:{
-              id: params.row.id
-          }
-      })
-    },
-    onDeleteKlass(id){
-      shippingService.delete(id).then(res=>{
-            if(res.data.code===0){
-              this.$Message.success("删除成功")
-              this.getKlassList()
-            }else{
-              this.$Message.success("删除失败："+res.data.message)
-            }
-          })
     }
   }
 

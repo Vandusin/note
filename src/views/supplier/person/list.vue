@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/PersonList.vue'
-import shippingService from '@/api/shippinginfo'
+import supplierService from '@/api/Supplierinfo'
 
 export default {
   components: {
@@ -76,12 +76,13 @@ export default {
       ]
     }
   },
+  //created生命周期
   created () {
     this.getKlassList()
   },
   methods: {
     getKlassList(){
-      shippingService.list().then(res=>{
+      supplierService.list().then(res=>{
         this.items = res.data
       })
     },
@@ -96,7 +97,7 @@ export default {
       })
     },
     onDeleteKlass(id){
-      shippingService.delete(id).then(res=>{
+      supplierService.delete(id).then(res=>{
             if(res.data.code===0){
               this.$Message.success("删除成功")
               this.getKlassList()

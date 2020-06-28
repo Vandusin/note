@@ -3,7 +3,7 @@
     <List :columns="columns" :data="items">
       <div class="list-header">
         <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/klass/edit`)">新增</Button>
+          <Button class="margin-right-sm" type="primary" @click="$router.push(`/supplier/table/shipping/edit`)">新增</Button>
         </div>
         <div class="list-search">
           <Form inline >
@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import shippingService from '@/api/shippinginfo'
+import supplierService from '@/api/Supplierinfo'
 
 export default {
   components: {
@@ -67,7 +67,7 @@ export default {
               h('Button', {
               on: {
                   click: () => {
-                  this.onDeleteKlass(params.row.id)
+                  this.onDeletestock(params.row.id)
                   }
               }
               }, '删除'),
@@ -77,11 +77,11 @@ export default {
     }
   },
   created () {
-    this.getKlassList()
+    this.getstockList()
   },
   methods: {
-    getKlassList(){
-      shippingService.list().then(res=>{
+    getstockList(){
+      supplierService.list().then(res=>{
         this.items = res.data
       })
     },
@@ -89,17 +89,17 @@ export default {
       console.log("this params"+params)
       //输入内容
       this.$router.push({
-          path:`/klass/edit`,
+          path:`/supplier/table/shipping/edit`,
           query:{
               id: params.row.id
           }
       })
     },
-    onDeleteKlass(id){
-      shippingService.delete(id).then(res=>{
+    onDeletestock(id){
+     supplierService.delete(id).then(res=>{
             if(res.data.code===0){
               this.$Message.success("删除成功")
-              this.getKlassList()
+              this.getstockList()
             }else{
               this.$Message.success("删除失败："+res.data.message)
             }

@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import shippingService from '@/api/shippinginfo'
+import AdminService from '@/api/admininfo'
 
 export default {
   components: {
@@ -56,11 +56,11 @@ export default {
     }
   },
   created () {
-    this.getKlassList()
+    this.getAdminList()
   },
   methods: {
-    getKlassList(){
-      shippingService.list().then(res=>{
+    getKAdminList(){
+      AdminService.list().then(res=>{
         this.items = res.data
       })
     },

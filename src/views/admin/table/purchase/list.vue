@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import shippingService from '@/api/shippinginfo'
+import adminService from '@/api/admininfo'
 
 export default {
   components: {
@@ -42,30 +42,35 @@ export default {
       },
       {
           title: '供应商编号',
-          key: 'purchaseid',
+          key: 'supplierId',
       },
       {
           title: '产品名称',
-          key: 'name',
+          key: 'productName',
       },
       {
           title: '产品价格',
-          key: 'price',
+          key: 'productPrice',
       },
       {
           title: '产品信息',
-          key: 'information',
+          key: 'productInformation',
+      },
+      {
+        title: '产品数量',
+        key: 'number',
       }
       ]
     }
   },
   created () {
-    this.getKlassList()
+    this.getstockList()
   },
   methods: {
-    getKlassList(){
-      shippingService.list().then(res=>{
-        this.items = res.data
+    getstockList(){
+      adminService. liststockTable().then(res=>{
+        // this.items = res.data
+        console.log(res)
       })
     },
   }

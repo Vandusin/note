@@ -25,7 +25,7 @@
 </template>
 <script>
 import List from '@/components/List.vue'
-import adminshippingService from '@/api/admininfo'
+import adminService from '@/api/admininfo'
 
 export default {
   components: {
@@ -60,11 +60,11 @@ export default {
     }
   },
   created () {
-    this.getstockTableList()
+    this.getShippingTableList()
   },
   methods: {
-    getstockTableList(){
-      adminshippingService.list().then(res=>{
+    getShippingTableList(){
+      adminService.listshippingTable().then(res=>{
         this.items = res.data
       })
     },

@@ -1,10 +1,14 @@
 import axios from 'axios'
 
+const request = axios.create({baseURL:'http://39.108.147.203:9000'})
+
 export default {
 
+
+    //进货信息表
     liststockTable() {
         return new Promise((resolve, reject) => {
-            axios.get('/administrator/list/stockTable')
+            request.get('/administrator/list/stockTable')
             .then(res => {
                 resolve(res)
             })
@@ -14,6 +18,7 @@ export default {
         })
     },
 
+    //出货信息表
     listshippingTable() {
         return new Promise((resolve, reject) => {
             axios.get('/administrator/list/shippingTable')
@@ -26,6 +31,7 @@ export default {
         })
     },
 
+    //管理员信息
     listadmin() {
         return new Promise((resolve, reject) => {
             axios.get('/administrator/list/administrator')
@@ -38,6 +44,7 @@ export default {
         })
     },
 
+    //供应商信息表
     listsupplier() {
         return new Promise((resolve, reject) => {
             axios.get('/administrator/list/supplier')
@@ -50,6 +57,7 @@ export default {
         })
     },
 
+    //客户信息表
     listcustomer(){
         return new Promise((resolve, reject) => {
             axios.get('/administrator/list/customer')
@@ -62,12 +70,75 @@ export default {
         })
     },
 
-    listinformation(){
-
+    //个人信息
+    listinformation(id){
+        return new Promise((resolve, reject) => {
+            axios.get(`/administrator/information/${id}`)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
 
     },
 
+    //form-data
+    //row
+    //data
 
+    //管理员信息创建
+    addAdministartor(){
+    },
+
+    //修改管理员信息
+    updateAdministrator(){
+
+    },
+
+    //删除管理员信息
+    deleteadmin(id){
+        return new Promise((resolve, reject) => {
+            axios.get('/administrator/delAdministrator'+id+status)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
+    },
+
+    //创建供应商信息
+    createSupplier(){
+
+    },
+
+    //修改供应商信息
+    updateSupplier(){
+
+    },
+
+    //删除供应商信息
+    deleteSupplier(){
+
+    },
+
+    //创建客户信息
+    createCustomer(){
+
+    },
+
+    //修改客户信息
+    updateCustomer(){
+
+    },
+
+    //删除客户信息
+    deleteCustomer(){
+
+    },
     getById(id) {
         return new Promise((resolve, reject) => {
             axios.get('/api/user/'+id, )

@@ -1,18 +1,15 @@
 import axios from 'axios'
 
-// const request = axios.create({baseURL: "http://39.106.196.110:9090"})
-
-export default {
-
+export default{
     list() {
         return new Promise((resolve, reject) => {
-            axios.post('/api/shipping/list')
-            .then(res =>{
-                resolve(res)
-            })
-            .catch(err=>{
-                reject(err)
-            })
+            axios.post('/Customer/list')
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(err => {
+                    reject(err)
+                })
             // 
             // request.post("/", { id: num, page: 10 })
             //     .then(res => {
@@ -32,33 +29,34 @@ export default {
         })
     },
 
-    save(data) {
+    //个人信息显示
+    information(id) {
         return new Promise((resolve, reject) => {
-            axios.post('/api/shipping/save', data)
+            axios.post(`/Customer/information/${id}`)
                 .then(res => {
                     resolve(res)
                 })
-                .catch((err) => {
+                .catch(err => {
                     reject(err)
                 })
         })
     },
 
-    getById(id) {
-        return new Promise((resolve, reject) => {
-            axios.get('/api/shipping/' + id)
-                .then(res => {
-                    resolve(res)
-                })
-                .catch((err) => {
-                    reject(err)
-                })
-        })
+
+    //创建出货信息
+    create() {
+        return new Promise
     },
 
+    //修改商品信息
+    update() {
+        return new Promise
+    },
+
+    //删除商品信息
     delete(id) {
         return new Promise((resolve, reject) => {
-            axios.get('/api/shipping/del/' + id)
+            axios.get('/Customer/del' + id)
                 .then(res => {
                     resolve(res)
                 })
@@ -66,5 +64,5 @@ export default {
                     reject(err)
                 })
         })
-    }
+    },
 }
