@@ -22,9 +22,9 @@
               <Icon type="ios-arrow-down"></Icon>
             </a>
             <DropdownMenu slot="list">
-              <DropdownItem name="changePassword">
+              <DropdownItem name="change">
                 <div  class="flex_row">
-                  修改密码
+                  修改个人信息
                 </div>
               </DropdownItem>
               <DropdownItem divided name="logout">
@@ -80,8 +80,8 @@ export default {
 
     onProfileItemClick (value) {
       switch (value) {
-        case 'changePassword':
-          this.changePassword()
+        case 'change':
+          this.change()
           break
         case 'logout':
           this.logout()
@@ -89,9 +89,9 @@ export default {
       }
     },
 
-    changePassword () {
-      this.$Message.info('修改密码')
-      this.$router.push({path:'/supplier/person/changepwd'})
+    change () {
+      this.$Message.info('修改个人信息')
+      this.$router.push({path:'/supplier/person/edit'})
     },
 
     logout () {

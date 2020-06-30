@@ -18,7 +18,7 @@
         <Input  type="number" v-model="TableInfo.number" placeholder="请输入产品的数量" style="width:300px;" />
       </Form-item>
       <Form-item class="submit">
-        <Button type="primary" @click="onSubmit" class="margin-right-sm">保存</Button>
+        <Button type="primary" @click="onSubmit" class="margin-right-sm">提交</Button>
         <Button @click="goBack()" style="margin-left:10px;">返回</Button>
       </Form-item>
     </Form>
@@ -69,15 +69,17 @@ export default {
     },
     onSubmit () {
       let formdata = new FormData();
-      let ids = this.$route.query.id
+
       formdata.set("productName", this.TableInfo.productName)
       formdata.set("productPrice", this.TableInfo.productPrice)
       formdata.set("productInformation", this.TableInfo.productInformation)
       formdata.set("number", this.TableInfo.number)
-      formdata.set("id",ids)
 
-      supplierService.update(formdata).then(() =>{
+      supplierService.create(formdata).then((res) =>{
+        if (res.data.code === 200) {
+          this.$Message.success("success")
           this.$router.push({path:'/supplier/table/shipping/list'})
+        }
       })
     }
   }

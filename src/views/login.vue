@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data () {
     return {
@@ -41,7 +43,42 @@ export default {
   },
   methods: {
     onLogin () {
-      this.$Message.success('登录成功')
+      let loginData = new FormData();
+
+      loginData.set("name", this.form.username);
+      loginData.set("password", this.form.password);
+
+
+      axios.post("http://39.108.147.203:9000/home/login", loginData).then(res=> {
+        console.log(res);
+        let data = res.data;
+
+        if (data.code === 200) {
+          if (data.status === 3){
+            this.$router.push({path:'/adminindex'})
+            this.$Message.success("success")
+          }
+           else if (data.status === 2){
+            this.$router.push({path:'/customerindex'})
+            this.$Message.success("success")
+          }
+           else if (data.status === 1){
+            this.$router.push({path:'/supplierindex'})
+            this.$Message.success("success")
+          }
+        } else if (data.code === 401){
+          this.$Message.error(data.msg)
+        }
+
+        // if(res.data.code=== 200){
+        //   this.$router.push({path:'/index'})
+        // }else{
+        //   this.$router.push({path:'/register'})
+        // }
+      })
+
+      // this.$router.push({path:'/index'})
+      // this.$Message.success('登录成功')
       // LoginByUsername({ commit }, userInfo) {
       //   const username = userInfo.username.trim()
       //   return new Promise((resolve, reject) => {
@@ -56,12 +93,12 @@ export default {
       // });
       // }
       // this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+      // 跳转
       //   this.$router.push({ path: '/' }); //登录成功之后重定向到首页
       //   }).catch(err => {
       //  this.$message.error(err); //登录失败提示错误
       // });
     },
-
     register(){
       this.$router.push({path:'/register'})
     }

@@ -1,117 +1,43 @@
 <template>
-  <div>
-    <List :columns="columns" :data="items">
-      <div class="list-header">
-        <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/klass/edit`)">新增</Button>
-        </div>
-        <div class="list-search">
-          <Form inline >
-            <Form-item prop="name">
-              <i-input 
-                placeholder="请输入货物信息名称" 
-                v-model="input" 
-                clearable>
-              </i-input>
-            </Form-item>
-            <Form-item>
-              <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-            </Form-item>
-          </Form>
-        </div>
-      </div>
-    </List>
-  </div>
+   <Row>
+    <i-col span="11">
+      <Card>
+        <p slot="title">用户个人信息</p>
+        <p>姓名:{{items.customerName}}</p>
+        <p>电子邮件:{{items.email}}</p>
+        <p>地址:{{items.address}}</p>
+        <p>电话:{{items.phoneNumber}}</p>
+        <p>邮编:{{items.postCode}}</p>
+        <p>银行账号:{{items.bankAccount}}</p>
+      </Card>
+    </i-col>
+  </Row>
 </template>
 <script>
-import List from '@/components/PersonList.vue'
-import customerService from '@/api/Customerinfo'
+
+import customerService from "@/api/Customerinfo";
 
 export default {
-  components: {
-    List
-  },
-  data () {
+  data() {
     return {
-      input:'',
-      items:[],
-      columns:[
-      {
-          title: '产品编号',
-          key: 'id',
-      },
-      {
-          title: '产品名称',
-          key: 'name',
-      },
-      {
-          title: '产品价格',
-          key: 'price',
-      },
-      {
-          title: '产品信息',
-          key: 'information',
-      },
-      {
-          title: '操作',
-          key: 'action',
-          width: 260,
-          render: (h, params) => h('ButtonGroup', [
-              h('Button', {
-              on: {
-                  click: () => {
-                    this.onEditForm(params)
-                  }
-              }
-              }, '编辑'),
-              h('Button', {
-              on: {
-                  click: () => {
-                  this.onDeleteKlass(params.row.id)
-                  }
-              }
-              }, '删除'),
-          ])
-      }
-      ]
-    }
+      input: "",
+      items: [],
+    };
   },
-  created () {
-    this.getKlassList()
+  created() {
+    this.getKlassList();
   },
   methods: {
-    getKlassList(){
-      customerService.list().then(res=>{
-        this.items = res.data
-      })
+    getKlassList() {
+      customerService.information().then(res => {
+        this.items = res.data.customer;
+      });
     },
-    onEditForm(params){
-      console.log("this params"+params)
-      //输入内容
-      this.$router.push({
-          path:`/klass/edit`,
-          query:{
-              id: params.row.id
-          }
-      })
-    },
-    onDeleteKlass(id){
-      customerService.delete(id).then(res=>{
-            if(res.data.code===0){
-              this.$Message.success("删除成功")
-              this.getKlassList()
-            }else{
-              this.$Message.success("删除失败："+res.data.message)
-            }
-          })
-    }
   }
-
-}
+};
 </script>
 
 <style>
-
 .list-header {
   position: relative;
   margin-top: 20px;

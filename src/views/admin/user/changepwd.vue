@@ -1,10 +1,16 @@
     <template>
     <i-form v-ref:form-custom :model="formCustom" :rules="ruleCustom" :label-width="80" >
-        <Form-item label="密码" prop="passwd">
-            <i-input type="password" :value.sync="formCustom.passwd" style="width: 250px"></i-input>
+        <Form-item label="管理员姓名" prop="administratorName">
+            <i-input :value.sync="formCustom.administratorName" style="width: 250px" v-model="formCustom.administratorName"></i-input>
         </Form-item>
-        <Form-item label="确认密码" prop="passwdCheck">
-            <i-input type="password" :value.sync="formCustom.passwdCheck" style="width: 250px"></i-input>
+        <Form-item label="邮箱" prop="email">
+            <i-input :value.sync="formCustom.email" style="width: 250px" v-model="formCustom.email"></i-input>
+        </Form-item>
+        <Form-item label="电话号码" prop="phoneNumber">
+            <i-input :value.sync="formCustom.phoneNumber" style="width: 250px" v-model="formCustom.phoneNumber"></i-input>
+        </Form-item>
+        <Form-item label="密码" prop="password">
+            <i-input type="password" :value.sync="formCustom.password" style="width: 250px" v-model="formCustom.password"></i-input>
         </Form-item>
         <Form-item>
             <i-button type="primary" @click="handleSubmit('formCustom')">提交</i-button>
@@ -14,41 +20,13 @@
 <script>
     export default {
         data () {
-            const validatePass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                } else {
-                    if (this.formCustom.passwdCheck !== '') {
-                        // 对第二个密码框单独验证
-                        this.$refs.formCustom.validateField('passwdCheck');
-                    }
-                    callback();
-                }
-            };
-            const validatePassCheck = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请再次输入密码'));
-                } else if (value !== this.formCustom.passwd) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                    callback();
-                }
-            };
-            
             return {
                 formCustom: {
-                    passwd: '',
-                    passwdCheck: '',
-                    age: ''
+                    administratorName: "",
+                    password: "",
+                    phoneNumber: "",
+                    email: "",
                 },
-                ruleCustom: {
-                    passwd: [
-                        { validator: validatePass, trigger: 'blur' }
-                    ],
-                    passwdCheck: [
-                        { validator: validatePassCheck, trigger: 'blur' }
-                    ],
-                }
             }
         },
         methods: {

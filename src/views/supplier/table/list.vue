@@ -3,21 +3,9 @@
     <List :columns="columns" :data="items">
       <div class="list-header">
         <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/supplier/table/shipping/edit`)">新增</Button>
+          <Button class="margin-right-sm" type="primary" @click="$router.push(`/supplier/table/shipping/create`)">新增</Button>
         </div>
         <div class="list-search">
-          <Form inline >
-            <Form-item prop="name">
-              <i-input 
-                placeholder="请输入货物信息名称" 
-                v-model="input" 
-                clearable>
-              </i-input>
-            </Form-item>
-            <Form-item>
-              <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-            </Form-item>
-          </Form>
         </div>
       </div>
     </List>
@@ -32,25 +20,58 @@ export default {
     List
   },
   data () {
+    let test = [
+      {
+        id: 1,
+        name: "A货物",
+        price: 70,
+        information: "aa货物",
+      },
+      {
+        id: 2,
+        name: "B货物",
+        price: 100,
+        information: "o货物",
+      },
+      {
+        id: 3,
+        name: "C货物",
+        price: 7,
+        information: "一般货物",
+      },
+      {
+        id: 4,
+        name: "D货物",
+        price: 36,
+        information: "best的货物",
+      }]
     return {
       input:'',
-      items:[],
+      items:test,
       columns:[
       {
-          title: '产品编号',
+          title: '产品ID',
           key: 'id',
       },
       {
+          title: '供应商ID',
+          key: 'supplierId',
+      },
+      {
           title: '产品名称',
-          key: 'name',
+          key: 'productName',
       },
       {
           title: '产品价格',
-          key: 'price',
+          key: 'productPrice',
+      },
+      {
+          title: '产品数量',
+          key: 'number',
       },
       {
           title: '产品信息',
-          key: 'information',
+          key: 'productInformation',
       },
       {
           title: '操作',
@@ -82,7 +103,7 @@ export default {
   methods: {
     getstockList(){
       supplierService.list().then(res=>{
-        this.items = res.data
+        this.items = res.data.pageInfo.list
       })
     },
     onEditForm(params){
@@ -96,14 +117,9 @@ export default {
       })
     },
     onDeletestock(id){
-     supplierService.delete(id).then(res=>{
-            if(res.data.code===0){
-              this.$Message.success("删除成功")
-              this.getstockList()
-            }else{
-              this.$Message.success("删除失败："+res.data.message)
-            }
-          })
+     supplierService.delete(id).then(()=>{
+        this.getstockList()
+      })
     }
   }
 

@@ -13,12 +13,12 @@ export default [
         icon: 'ios-folder-outline',
         title: '进货信息列表',
         route: '/admin/table/purchase/list'
-      },
-      {
+      }
+      /*{
         icon: 'ios-folder-outline',
         title: '产品信息列表',
         route: '/admin/table/product/list'
-      }
+      }*/
     ]
   },
   {

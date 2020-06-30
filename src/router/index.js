@@ -37,7 +37,7 @@ const router = new Router({
             component: () => import('@/views/not-found.vue')
         },
 
-        //主页
+        //注册页面
         {
             path: '/register',
             name: 'register',
@@ -45,11 +45,17 @@ const router = new Router({
                 title: '用户注册'
             },
 
-            /*component: () => import('@/views/register.vue')*/
-            component: clayout,
+            component: () => import('@/views/register.vue')
+        },
+
+        //管理员主页
+        {
+          path: '/adminindex',
+          name: 'adminindex',
+          component: layout,
             children: [
                 {
-                path: 'index',
+                path: '/adminindex',
                 meta: {
                     title: '票据管理系统'
                 },
@@ -58,6 +64,37 @@ const router = new Router({
             ]
         },
 
+        //供应商主页
+        {
+          path: '/supplierindex',
+          name: 'supplierindex',
+          component: slayout,
+            children: [
+                {
+                path: '/supplierindex',
+                meta: {
+                    title: '票据管理系统'
+                },
+                component: () => import('@/views/supplier/index/index.vue')
+                }
+            ]
+        },
+
+        //客户主页
+        {
+          path: '/customerindex',
+          name: 'customerindex',
+          component: clayout,
+            children: [
+                {
+                path: '/customerindex',
+                meta: {
+                    title: '票据管理系统'
+                },
+                component: () => import('@/views/customer/index/index.vue')
+                }
+            ]
+        },
         
         {
             path: '*',
@@ -161,9 +198,16 @@ const router = new Router({
               component: ()=> import('@/views/customer/table/list.vue')
             },
             {
-              path: '/customer/table/shipping/edit',
+              path: '/customer/table/shipping/create',
               meta:{
                 title: '客户出货信息编辑表'
+              },
+              component: ()=> import('@/views/customer/table/create.vue')
+            },
+            {
+              path: '/customer/table/shipping/edit',
+              meta:{
+                title: '客户出货信息创建表'
               },
               component: ()=> import('@/views/customer/table/edit.vue')
             }
@@ -193,13 +237,6 @@ const router = new Router({
               },
               component: ()=> import('@/views/customer/person/edit.vue')
             },
-            {
-              path: '/customer/person/changepwd',
-              meta:{
-                title: '客户个人信息编辑表'
-              },
-              component: ()=> import('@/views/customer/person/changepwd.vue')
-            }
           ]
         },
 
@@ -225,40 +262,40 @@ const router = new Router({
                 title: '供应商进货信息编辑表'
               },
               component: ()=> import('@/views/supplier/table/edit.vue')
+            },
+            {
+              path: '/supplier/table/shipping/create',
+              meta:{
+                title: '供应商进货信息创建表'
+              },
+              component: ()=> import('@/views/supplier/table/create.vue')
             }
           ]
         },
 
-        //客户操作系统-个人信息
+        //供应商操作系统-个人信息
         {
           path: '/supplier-person',
           name: 'supplier-person',
           meta: {
-              title: '客户个人信息'
+              title: '供应商个人信息'
           },
           component: slayout,
           children: [
             {
               path: '/supplier/person/list',
               meta:{
-                title: '客户个人信息'
+                title: '供应商个人信息'
               },
               component: ()=> import('@/views/supplier/person/list.vue')
             },
             {
               path: '/supplier/person/edit',
               meta:{
-                title: '客户个人信息编辑表'
+                title: '供应商个人信息编辑表'
               },
               component: ()=> import('@/views/supplier/person/edit.vue')
             },
-            {
-              path: '/supplier/person/changepwd',
-              meta:{
-                title: '密码修改'
-              },
-              component: ()=> import('@/views/supplier/person/changepwd.vue')
-            }
           ]
         }
     ]

@@ -5,20 +5,26 @@
       :model="PersonInfo"
       :rules="rules"
       :label-width="100">
+      <Form-item label="供应商名字" prop="supplierName">
+        <Input v-model="PersonInfo.supplierName" placeholder="请输入新的名称" style="width:300px;" />
+      </Form-item>
+      <Form-item label="密码" prop="password">
+        <Input  type="password" v-model="PersonInfo.password" placeholder="请输入新的密码" style="width:300px;" />
+      </Form-item>
       <Form-item label="电子邮件" prop="email">
         <Input v-model="PersonInfo.email" placeholder="请输入新电子邮件地址" style="width:300px;" />
       </Form-item>
-      <Form-item label="地址" prop="adress">
-        <Input  v-model="PersonInfo.adress" placeholder="请输入新地址" style="width:300px;" />
+      <Form-item label="地址" prop="address">
+        <Input  v-model="PersonInfo.address" placeholder="请输入新地址" style="width:300px;" />
       </Form-item>
-      <Form-item label="电话" prop="phone">
-        <Input  type="number" v-model="PersonInfo.phone" placeholder="请输入新电话号码" style="width:300px;" />
+      <Form-item label="电话" prop="phoneNumber">
+        <Input  type="number" v-model="PersonInfo.phoneNumber" placeholder="请输入新电话号码" style="width:300px;" />
       </Form-item>
-      <Form-item label="邮编" prop="postcode">
-        <Input  type="number" v-model="PersonInfo.postcode" placeholder="请输入新的地址邮编" style="width:300px;" />
+      <Form-item label="邮编" prop="postCode">
+        <Input  type="number" v-model="PersonInfo.postCode" placeholder="请输入新的地址邮编" style="width:300px;" />
       </Form-item>
-      <Form-item label="银行账户" prop="bank">
-        <Input  type="number" v-model="PersonInfo.bank" placeholder="请输入新的银行账户" style="width:300px;" />
+      <Form-item label="银行账户" prop="bankAccount">
+        <Input  type="number" v-model="PersonInfo.bankAccount" placeholder="请输入新的银行账户" style="width:300px;" />
       </Form-item>
       <Form-item class="save">
         <Button type="primary" @click="onSave" class="margin-right-sm">保存</Button>
@@ -30,11 +36,25 @@
 
 <script>
 
+import supplierService from "@/api/Supplierinfo"
+
 export default {
   data () {
     return {
       PersonInfo: {},
       rules: {
+        supplierName: [
+            {
+                required: true,
+                message: "名称不能为空",
+            }
+        ],
+        password: [
+            {
+                required: true,
+                message: "密码不能为空",
+            }
+        ],
         email: [
           {
             required: true,
@@ -46,13 +66,13 @@ export default {
             }
         
         ],
-        adress: [
+        address: [
             {
                 required: true,
                 message: "地址不能为空",
             }
         ],
-        phone: [
+        phoneNumber: [
             {
                 required: true,
                 message: "电话号码不能为空",
@@ -62,7 +82,7 @@ export default {
                 message: "电话号码不能超过十一位",
             }
         ],
-        postcode: [
+        postCode: [
             {
                 required: true,
                 message: "邮编不能为空",
@@ -77,19 +97,11 @@ export default {
             }
 
         ],
-        bank: [
+        bankAccount: [
             {
                 required: true,
-                message: "银行账号不能为空",
+                message: "银行金额不能为空",
             },
-            {
-                min: 12,
-                message: " 银行账号不能少于12位",
-            },
-            {
-                max: 21,
-                message: "银行账号不能多于21位",
-            }
         ]
       },
     }
@@ -101,12 +113,21 @@ export default {
       window.history.go(-1)
     },
     onSave () {
-      this.$refs.PersonInfo.validate(async valid => {
-        if (valid) {
-          this.$Message.success("保存成功")
+      let formdata = new FormData();
+      formdata.set("supplierName", this.PersonInfo.supplierName);
+      formdata.set("password", this.PersonInfo.password);
+      formdata.set("postCode", this.PersonInfo.postCode);
+      formdata.set("phoneNumber", this.PersonInfo.phoneNumber);
+      formdata.set("email", this.PersonInfo.email);
+      formdata.set("address", this.PersonInfo.address);
+      formdata.set("bankAccount", this.PersonInfo.bankAccount);
 
+      supplierService.updateinformation(formdata).then(res =>{
+         if (res.data.code === 200) {
+          this.$Message.success("success")
+          this.$router.push({path:'/login'})
         }
-      })
+    });
     }
   }
 }

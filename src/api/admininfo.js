@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const request = axios.create({baseURL:'http://39.108.147.203:9000'})
+// const request = axios.create()
 
 export default {
 
@@ -21,7 +22,7 @@ export default {
     //出货信息表
     listshippingTable() {
         return new Promise((resolve, reject) => {
-            axios.get('/administrator/list/shippingTable')
+            request.get('/administrator/list/shippingTable')
             .then(res => {
                 resolve(res)
             })
@@ -34,7 +35,7 @@ export default {
     //管理员信息
     listadmin() {
         return new Promise((resolve, reject) => {
-            axios.get('/administrator/list/administrator')
+            request.get('/administrator/list/administrator')
             .then(res => {
                 resolve(res)
             })
@@ -47,7 +48,7 @@ export default {
     //供应商信息表
     listsupplier() {
         return new Promise((resolve, reject) => {
-            axios.get('/administrator/list/supplier')
+            request.get('/administrator/list/supplier')
             .then(res => {
                 resolve(res)
             })
@@ -60,7 +61,7 @@ export default {
     //客户信息表
     listcustomer(){
         return new Promise((resolve, reject) => {
-            axios.get('/administrator/list/customer')
+            request.get('/administrator/list/customer')
             .then(res => {
                 resolve(res)
             })
@@ -73,7 +74,7 @@ export default {
     //个人信息
     listinformation(id){
         return new Promise((resolve, reject) => {
-            axios.get(`/administrator/information/${id}`)
+            axios.post(`/administrator/information/${id}`)
             .then(res => {
                 resolve(res)
             })
@@ -89,15 +90,32 @@ export default {
     //data
 
     //管理员信息创建
-    addAdministartor(){
+    addAdministartor(information){
+        return new Promise((resolve, reject) => {
+            request.post('/administrator/createAdministrator/3', information)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
     },
 
     //修改管理员信息
-    updateAdministrator(){
-
+    updateAdministrator(information){
+        return new Promise((resolve, reject) => {
+            request.post('/home/saveSupplier', information)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
     },
 
-    //删除管理员信息
+    //删除管理员信息s
     deleteadmin(id){
         return new Promise((resolve, reject) => {
             axios.get('/administrator/delAdministrator'+id+status)
@@ -111,8 +129,16 @@ export default {
     },
 
     //创建供应商信息
-    createSupplier(){
-
+    createSupplier(information){
+        return new Promise((resolve, reject) => {
+            request.post('/home/saveSupplier', information)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
     },
 
     //修改供应商信息
@@ -126,8 +152,16 @@ export default {
     },
 
     //创建客户信息
-    createCustomer(){
-
+    createCustomer(information){
+        return new Promise((resolve, reject) => {
+            request.post('/home/saveCustomer', information)
+            .then(res => {
+                resolve(res)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+        })
     },
 
     //修改客户信息

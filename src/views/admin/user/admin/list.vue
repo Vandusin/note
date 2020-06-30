@@ -2,22 +2,7 @@
   <div>
     <List :columns="columns" :data="items">
       <div class="list-header">
-        <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/klass/edit`)">新增</Button>
-        </div>
         <div class="list-search">
-          <Form inline >
-            <Form-item prop="name">
-              <i-input 
-                placeholder="请输入管理员名字" 
-                v-model="input" 
-                clearable>
-              </i-input>
-            </Form-item>
-            <Form-item>
-              <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-            </Form-item>
-          </Form>
         </div>
       </div>
     </List>
@@ -32,9 +17,35 @@ export default {
     List
   },
   data () {
+    let test = [
+      {
+        id: 1,
+        name: "admin",
+        email: "111111111@qq.com",
+        phone: 12345678911,
+      },
+      {
+        id: 2,
+        name: "test1",
+        email: "222222222@qq.com",
+        phone: 13788919971,
+      },
+      {
+        id: 3,
+        name: "test2",
+        email: "231456789@qq.com",
+        phone: 15788926612,
+      },
+      {
+        id: 4,
+        name: "test3",
+        email: "234415151@qq.com",
+        phone: 13988276541,
+      }
+    ];
     return {
       input:'',
-      items:[],
+      items: test,
       columns:[
       {
           title: '管理员ID',
@@ -42,7 +53,7 @@ export default {
       },
       {
           title: '管理员姓名',
-          key: 'name',
+          key: 'administratorName',
       },
       {
           title: '电子邮箱',
@@ -50,7 +61,11 @@ export default {
       },
       {
           title: '电话',
-          key: 'phone',
+          key: 'phoneNumber',
+      },
+      {
+          title: '密码',
+          key: 'password'
       }
       ]
     }
@@ -59,9 +74,9 @@ export default {
     this.getAdminList()
   },
   methods: {
-    getKAdminList(){
-      AdminService.list().then(res=>{
-        this.items = res.data
+    getAdminList(){
+      AdminService.listadmin().then(res=>{
+        this.items = res.data.pageInfo.list
       })
     },
   }

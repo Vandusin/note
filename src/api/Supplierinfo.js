@@ -1,41 +1,25 @@
 import axios from 'axios'
 
-// const request = axios.create({baseURL: "http://39.106.196.110:9090"})
+const request = axios.create({baseURL: "http://39.108.147.203:9000"})
 
 export default {
 
     list() {
         return new Promise((resolve, reject) => {
-            axios.post('/Supplie/list')
+            request.get('/Supplier/list')
                 .then(res => {
                     resolve(res)
                 })
                 .catch(err => {
                     reject(err)
                 })
-            // 
-            // request.post("/", { id: num, page: 10 })
-            //     .then(res => {
-            //         resolve(res)
-            //     })
-            //     .catch(err => {
-            //         reject(err)
-            //     })
-            // 
-            // request.get("/", { params:{ id: num, page: 10} })
-            //     .then(res => {
-            //         resolve(res)
-            //     })
-            //     .catch(err => {
-            //         reject(err)
-            //     })
         })
     },
 
     //个人信息显示
-    information(id) {
+    information() {
         return new Promise((resolve, reject) => {
-            axios.post(`/Supplier/information/${id}`)
+            request.post(`/Supplier/information`)
                 .then(res => {
                     resolve(res)
                 })
@@ -45,21 +29,48 @@ export default {
         })
     },
 
+    updateinformation(information){
+        return new Promise((resolve, reject) => {
+            request.post(`/Supplier/updateInformation/1`,information)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    },
 
     //创建进货信息
-    create() {
-        return new Promise
+    create(info) {
+        return new Promise((resolve, reject) => {
+            request.post(`/Supplier/create/1`,info)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
     },
 
     //修改商品信息
-    update() {
-        return new Promise
+    update(info) {
+        return new Promise((resolve, reject) => {
+            request.post(`/Supplier/update/1`,info)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
     },
 
     //删除商品信息
     delete(id) {
         return new Promise((resolve, reject) => {
-            axios.get('/Supplier/del' + id)
+            request.post(`/Supplier/del/${id}/1`)
                 .then(res => {
                     resolve(res)
                 })
@@ -69,41 +80,4 @@ export default {
         })
     },
 
-
-
-    save(data) {
-        return new Promise((resolve, reject) => {
-            axios.post('/api/shipping/save', data)
-                .then(res => {
-                    resolve(res)
-                })
-                .catch((err) => {
-                    reject(err)
-                })
-        })
-    },
-
-    getById(id) {
-        return new Promise((resolve, reject) => {
-            axios.get('/api/shipping/' + id)
-                .then(res => {
-                    resolve(res)
-                })
-                .catch((err) => {
-                    reject(err)
-                })
-        })
-    },
-
-    /*delete(id) {
-        return new Promise((resolve, reject) => {
-            axios.get('/api/shipping/del/' + id)
-                .then(res => {
-                    resolve(res)
-                })
-                .catch((err) => {
-                    reject(err)
-                })
-        })
-    }*/
 }

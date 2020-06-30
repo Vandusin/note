@@ -6,18 +6,6 @@
           <Button class="margin-right-sm" type="primary" @click="$router.push(`/customer/table/shipping/edit`)">新增</Button>
         </div>
         <div class="list-search">
-          <Form inline >
-            <Form-item prop="name">
-              <i-input 
-                placeholder="请输入货物信息名称" 
-                v-model="input" 
-                clearable>
-              </i-input>
-            </Form-item>
-            <Form-item>
-              <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-            </Form-item>
-          </Form>
         </div>
       </div>
     </List>
@@ -32,25 +20,54 @@ export default {
     List
   },
   data () {
+     let test = [
+      {
+        id: 1,
+        name: "A货物",
+        price: 70,
+        information: "可以使用的货物",
+      },
+      {
+        id: 2,
+        name: "B货物",
+        price: 100,
+        information: "a级货物",
+      },
+      {
+        id: 3,
+        name: "C货物",
+        price: 7,
+        information: "一般的货物",
+      },
+      {
+        id: 4,
+        name: "D货物",
+        price: 36,
+        information: "不好的货物",
+      }]
     return {
       input:'',
-      items:[],
+      items:test,
       columns:[
       {
           title: '产品编号',
           key: 'id',
       },
       {
-          title: '产品名称',
-          key: 'name',
+          title: '客户名称',
+          key: 'productName',
       },
       {
           title: '产品价格',
-          key: 'price',
+          key: 'productPrice',
+      },
+      {
+          title: '数量',
+          key: 'number',
       },
       {
           title: '产品信息',
-          key: 'information',
+          key: 'productInformation',
       },
       {
           title: '操作',
@@ -82,27 +99,22 @@ export default {
   methods: {
     getKlassList(){
       customerService.list().then(res=>{
-        this.items = res.data
+        this.items = res.data.pageInfo.list
       })
     },
     onEditForm(params){
-      console.log("this params"+params)
       //输入内容
       this.$router.push({
-          path:`/klass/edit`,
+          path:`/customer/table/shipping/create`,
           query:{
               id: params.row.id
           }
       })
     },
     onDeleteKlass(id){
-      customerService.delete(id).then(res=>{
-            if(res.data.code===0){
-              this.$Message.success("删除成功")
+      customerService.delete(id).then(()=>{
               this.getKlassList()
-            }else{
-              this.$Message.success("删除失败："+res.data.message)
-            }
+
           })
     }
   }

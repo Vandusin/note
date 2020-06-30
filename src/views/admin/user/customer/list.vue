@@ -2,22 +2,7 @@
   <div>
     <List :columns="columns" :data="items">
       <div class="list-header">
-        <div class="list-operations">
-          <Button class="margin-right-sm" type="primary" @click="$router.push(`/klass/edit`)">新增</Button>
-        </div>
         <div class="list-search">
-          <Form inline >
-            <Form-item prop="name">
-              <i-input 
-                placeholder="请输入客户名称" 
-                v-model="input" 
-                clearable>
-              </i-input>
-            </Form-item>
-            <Form-item>
-              <i-button type="primary" shape="circle" icon="ios-search"></i-button>
-            </Form-item>
-          </Form>
         </div>
       </div>
     </List>
@@ -32,21 +17,61 @@ export default {
     List
   },
   data () {
+    let test = [
+      {
+        id: 1,
+        name: "custom1",
+        email: "2341511121@qq.com",
+        phone: 12345678911,
+        adress: "北京市",
+        postcode: "100000",
+        number: "123456789299282131",
+      },
+      {
+        id: 2,
+        name: "customer2",
+        email: "1444277288@qq.com",
+        phone: 13729840172,
+        adress: "上海市",
+        postcode: "200000",
+        number: "37289017255712912",
+      },
+      {
+        id: 3,
+        name: "CCCC1",
+        email: "1347812890@qq.com",
+        phone: 15788920841,
+        adress: "天津市",
+        postcode: "300000",
+        number: "48612892735178923",
+      },
+      {
+        id: 4,
+        name: "stl",
+        email: "2341511121@qq.com",
+        phone: 13799012932,
+        adress: "重庆市",
+        postcode: "401400",
+        number: "67632728991625527",
+      }
+    ];
     return {
       input:'',
-      items:[],
+      items: test,
       columns:[
       {
           title: '客户ID',
           key: 'id',
           width: 100,
-          fixed: 'left'
-
       },
       {
           title: '客户姓名',
-          key: 'name',
+          key: 'customerName',
           width: 150,
+      },
+      {
+        title: '密码',
+        key: 'password',
       },
       {
           title: '电子邮箱',
@@ -55,28 +80,27 @@ export default {
       },
       {
         title: '电话号码',
-        key: 'phone',
+        key: 'phoneNumber',
         width: 150,
       },
       {
           title: '地址',
-          key: 'adress',
+          key: 'address',
           width: 200,
       },
       {
           title: '邮编',
-          key: 'postcode',
+          key: 'postCode',
           width: 100,
       },
       {
           title: '银行账户',
-          key: 'bank-account-number',
+          key: 'bankAccount',
           width: 200,
       },
       {
           title: '操作',
           key: 'action',
-          fixed: 'right',
           render: (h, params) => h('ButtonGroup', [
               h('Button', {
               on: {
@@ -95,8 +119,8 @@ export default {
   },
   methods: {
     getcustomerList(){
-      AdminService.list().then(res=>{
-        this.items = res.data
+      AdminService.listcustomer().then(res=>{
+        this.items = res.data.pageInfo.list
       })
     },
     onDeleteCustomer(id){
